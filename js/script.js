@@ -24,7 +24,19 @@ $(document).ready(function(){
         addResultHeader();
         var query = $('#search-query').val();
         // TODO 1: Call searchFoursquare with the right parameters
-    });
+        var latLon ='40.7127,74.0059';
+        var callback = function(response){
+             //alert('response');
+            console.log(response);
+            
+        for (var i=0;i<30;i++){
+            addResult(response.response.venues[i]);
+        }
+        };
+       searchFoursquare(query, latLon, callback);
+       
+      
+  });
 });
 
 
@@ -33,8 +45,13 @@ $(document).ready(function(){
 //   query: String that represents the query.
 //   latLon: String that represents the location nearby which you want to search.
 //   callback: single-parameter function that processes the search results.
+
 function searchFoursquare(query, latLon, callback) {
-    // TODO 2: query the fourquare server here, using jQuery's $.get() function.
+    
+// TODO 2: query the fourquare server here, using jQuery's $.get() function.
+var url="https://api.foursquare.com/v2/venues/search?client_id=EQ124X2XB55O5STAT323FYVCLS3N1XOSGT50AWFSYLXHUZ4H&client_secret=MNA04GQN1IYIP3ZRKBPYHXQKA42UKXPENUJ1NYLIFNY3J04Z&v=20160126&ll=40.74138576966485,-74.00251216940646&query="+query;             
+ $.get(url,callback);
+    
 }
 
 // Clears the html result elements, so you can then populate them with fresh results.
